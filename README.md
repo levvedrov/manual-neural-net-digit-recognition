@@ -1,6 +1,6 @@
-# MatrixVision
+# MNISTPass
 
-A lightweight forward-pass engine for neural networks, built entirely from scratch using custom matrix operations and raw image preprocessing.
+A forward-pass engine for neural networks, built entirely from scratch using custom matrix operations and raw image preprocessing.
 
 This project loads a `.png` image, converts it to a 28x28 grayscale matrix, flattens it to a vector, and feeds it into a fully connected neural network implemented without any machine learning libraries.
 
