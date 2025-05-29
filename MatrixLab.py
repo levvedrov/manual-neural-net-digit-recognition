@@ -70,7 +70,7 @@ class matrix:
             newMatrix.append(tmpRow)
 
         return matrix(newMatrix)
-            
+
     def solveGauss(self):
         
         def __elimination():
@@ -140,15 +140,25 @@ class matrix:
             for r in self.matrix:
                 row.append(r[indexRow])
             newMatrix.append(row)
-        self.matrix = newMatrix
-        newMatrix = None
-
-    def __mul__(self, val):
-        newMatrix = []
-        for row in self.matrix:
-            tmpRow = []
-            for unit in row:
-                tmpRow.append(unit*val)
-            newMatrix.append(tmpRow)
         return matrix(newMatrix)
 
+    def __mul__(self, val):
+        if isinstance(val, int) or isinstance(val, float):
+            newMatrix = []
+            for row in self.matrix:
+                tmpRow = []
+                for unit in row:
+                    tmpRow.append(unit*val)
+                newMatrix.append(tmpRow)
+            return matrix(newMatrix)
+        else:
+            if self.height!=val.height or self.width !=val.width:
+                raise Exception("Matrices must have the same size for element-wise multiplication")
+            newMatrix = []
+            for irow in range(val.height):
+                tmpRow = []
+                for iunit in range(val.width):
+                    tmpRow.append(self.matrix[irow][iunit]*val.matrix[irow][iunit])
+                newMatrix.append(tmpRow)
+
+            return matrix(newMatrix)
