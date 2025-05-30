@@ -66,7 +66,6 @@ def importModel(foldername):
                     tmp[i] = float(tmp[i])
                 newMatrix.append(tmp)
             input_hidden = matrix(newMatrix)
-            print(f"input_hidden scheme loaded : matrix {input_hidden.height}x{input_hidden.width}")
     except Exception as e:
         print(f"An error has been occured while the import of the input to hidden layer weights: {e}")
     
@@ -79,7 +78,6 @@ def importModel(foldername):
                     tmp[i] = float(tmp[i])
                 newMatrix.append(tmp)
             hidden_output = matrix(newMatrix)
-            print(f"hidden_output scheme loaded : matrix {hidden_output.height}x{hidden_output.width}")
     except Exception as e:
         print(f"An error has been occured while the import of the hidden to output layer weights: {e}")
 
@@ -88,8 +86,6 @@ def importModel(foldername):
 def backPropagation(initError, w_inputHidden, w_hiddenOutput):
     hidden_output_error = w_hiddenOutput.transpose() @ initError
     input_hidden_error = w_inputHidden.transpose() @ hidden_output_error
-    print(f"input_hidden_error : {input_hidden_error.height}x{input_hidden_error.width}")
-    print(f"hidden_output_error : {hidden_output_error.height}x{hidden_output_error.width}")
     return input_hidden_error, hidden_output_error
 
 def gradientDescent(rate, input_layer, hidden_layer, output_layer, out_error, e_hidden_output, w_input_hidden, w_hidden_output):
@@ -102,8 +98,6 @@ def gradientDescent(rate, input_layer, hidden_layer, output_layer, out_error, e_
 
     k_out = __oneMatrix(output_layer.height) - output_layer
     k_out = k_out * output_layer
-    print("e_hidden_output:", e_hidden_output.height, "×", e_hidden_output.width)
-    print("k_out:          ", k_out.height,         "×", k_out.width)
     delta_output = e_hidden_output * k_out
 
 
@@ -148,29 +142,33 @@ def saveModel(folder, inputHidden, hiddenOutput):
 
 
 
-input_layer = pngMatrix('test.png')
-print(f"InputLayer created : matrix {input_layer.height}x{input_layer.width}")
-w_input_hidden, w_hidden_output = importModel('model-1')
+def learn(model, dataset, num, learningRate):
+    input_layer = pngMatrix(f'{dataset}/{num}.png')
+    #print(f"InputLayer creaed : matrix {input_layer.height}x{input_layer.width}")
+    w_input_hidden, w_hidden_output = importModel(model)
 
-hidden_layer = sigmoidMatrix(w_input_hidden@input_layer)
-print(f"HiddenLayer created : matrix {hidden_layer.height}x{hidden_layer.width}")
-
-
-output_layer = sigmoidMatrix(w_hidden_output@hidden_layer)
-print(f"OutputLayer created : matrix {output_layer.height}x{output_layer.width}")
-out_error = calculateError(output_layer, 2) ###
-input_hidden_error, hidden_output_error = backPropagation(out_error, w_input_hidden, w_hidden_output)
-
-d_input_hidden, d_hidden_output = gradientDescent(0.1, input_layer, hidden_layer, output_layer, input_hidden_error, out_error, w_input_hidden, w_hidden_output)
-w_input_hidden-=d_input_hidden
-w_hidden_output-=d_hidden_output
-saveModel('model-1', w_input_hidden, w_hidden_output )
-output_layer.show()
+    hidden_layer = sigmoidMatrix(w_input_hidden@input_layer)
+    #print(f"HiddenLayer created : matrix {hidden_layer.height}x{hidden_layer.width}")
 
 
+    output_layer = sigmoidMatrix(w_hidden_output@hidden_layer)
+    #print(f"OutputLayer created : matrix {output_layer.height}x{output_layer.width}")
+    # output_layer.show()
 
 
+    out_error = calculateError(output_layer, num) ###
+    input_hidden_error, hidden_output_error = backPropagation(out_error, w_input_hidden, w_hidden_output)
+
+    d_input_hidden, d_hidden_output = gradientDescent(learningRate, input_layer, hidden_layer, output_layer, input_hidden_error, out_error, w_input_hidden, w_hidden_output)
+    w_input_hidden-=d_input_hidden
+    w_hidden_output-=d_hidden_output
+    saveModel(model, w_input_hidden, w_hidden_output )
 
 
-
-
+def detectPng(model, dataset, num):
+    input_layer = pngMatrix(f'{dataset}/{num}.png')
+    w_input_hidden, w_hidden_output = importModel(model)
+    hidden_layer = sigmoidMatrix(w_input_hidden@input_layer)
+    output_layer = sigmoidMatrix(w_hidden_output@hidden_layer)
+    output_layer.show()
+    
