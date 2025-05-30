@@ -29,3 +29,21 @@ This project is designed as an educational example of how neural networks work u
 | Activation   | Sigmoid |
 
 ---
+## Project Structure
+
+agent.py # Core neural network engine
+train_script.py # Training loop with matplotlib visualization
+starter.py # Initializes random weights
+MatrixLab.py # Custom matrix library (separate project)
+learning_dataset/ # PNG images for training (28x28 grayscale)
+model-1/ # Folder for saving model weights
+
+---
+
+## How It Works
+
+1️⃣ **starter.py** → generates random weights and saves them to `/model-1/`  
+2️⃣ **train_script.py** → runs training loop for several epochs and plots error graph  
+3️⃣ **agent.py** → contains full implementation of forward pass, backpropagation and gradient descent
+
+---
