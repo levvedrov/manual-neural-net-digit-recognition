@@ -1,28 +1,31 @@
-# MNISTPass
+# MNISTPass-sc: Neural Network from Scratch
 
-A forward-pass engine for neural networks, built entirely from scratch using custom matrix operations and raw image preprocessing.
+A simple neural network for digit classification built **entirely from scratch** in Python — no ML frameworks, no libraries like PyTorch or TensorFlow.  
+All matrix operations are implemented via a custom `MatrixLab` engine.
 
-This project loads a `.png` image, converts it to a 28x28 grayscale matrix, flattens it to a vector, and feeds it into a fully connected neural network implemented without any machine learning libraries.
+This project is designed as an educational example of how neural networks work under the hood.
+
+---
 
 ## Features
 
-- Pure Python implementation of a forward-pass neural network
-- No TensorFlow, PyTorch, or scikit-learn — all math is manual
-- Custom matrix engine: [MatrixLab](https://github.com/yourname/MatrixLab)
-- Converts any image to 28×28 grayscale and flattens into 784×1 input vector
-- Imports weights for two layers (`input_hidden`, `hidden_output`)
-- Performs full forward propagation through 3 layers
+- Image preprocessing (PNG → matrix)
+- Forward pass (sigmoid activation)
+- Backpropagation
+- Gradient descent optimizer
+- Manual save/load of weights
+- Training visualization (matplotlib)
+- No external ML libraries — **all math coded manually**
 
-## Why this project?
+---
 
-Unlike typical neural networks that rely on high-level libraries, **MatrixVision demonstrates how a neural network works internally**, by implementing:
+## Architecture
 
-- Matrix multiplication manually
-- Image preprocessing from raw pixels
-- Forward pass logic step-by-step
+| Layer        | Size    |
+|--------------|---------|
+| Input        | 784 (28x28 grayscale image) |
+| Hidden Layer | 100 neurons |
+| Output       | 10 neurons (digit classification: 0-9) |
+| Activation   | Sigmoid |
 
-This makes it ideal for:
-- Education
-- Understanding the mechanics behind neural networks
-- Lightweight custom inference
-
+---
