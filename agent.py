@@ -20,9 +20,9 @@ def calculateError(outputLayer, actuallVal):
     newMatrix = []
     for row in range(len(outputLayer.matrix)):
         if row == actuallVal:
-            newMatrix.append([1-outputLayer.matrix[row][0]])
+            newMatrix.append([outputLayer.matrix[row][0]-1])
         else:
-            newMatrix.append([0-outputLayer.matrix[row][0]])
+            newMatrix.append([outputLayer.matrix[row][0]-0])
     return matrix(newMatrix)
 
 def pngMatrix(filename):
@@ -30,7 +30,7 @@ def pngMatrix(filename):
         img = img.convert("L")
         img = img.resize((28,28))
         # img = img.filter(ImageFilter.DETAIL)
-        BitImg = np.asarray(img).flatten().tolist()
+        BitImg = (np.asarray(img).flatten() / 255.0).tolist()
 
     MatrixLst = []
     for bit in BitImg:
@@ -49,7 +49,7 @@ def snapMatrix():
         applyColorMap(frame, COLORMAP_BONE)
         imshow('a',frame)
         frame.resize(28,28)
-        BitImg = np.asarray(frame).flatten().tolist()
+        BitImg = (np.asarray(frame).flatten()/255.0).tolist()
         MatrixLst = []
         for bit in BitImg:
             MatrixLst.append([bit])
@@ -156,6 +156,7 @@ def learn(model, dataset, num, learningRate):
     # output_layer.show()
 
 
+    
     out_error = calculateError(output_layer, num) ###
     input_hidden_error, hidden_output_error = backPropagation(out_error, w_input_hidden, w_hidden_output)
 
@@ -163,6 +164,8 @@ def learn(model, dataset, num, learningRate):
     w_input_hidden-=d_input_hidden
     w_hidden_output-=d_hidden_output
     saveModel(model, w_input_hidden, w_hidden_output )
+    
+    return out_error
 
 
 def detectPng(model, dataset, num):
