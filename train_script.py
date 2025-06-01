@@ -8,7 +8,7 @@ learningRate = 0.005
 epocheNum = 10000
 
 epocheError = 0
-for i in range(2,3):
+for i in range(0,10):
     for pngIndex in range(100):
         Errors = a.learn("model-1", "learning_dataset", i, learningRate, pngIndex)
         epocheError += math.pow(Errors.matrix[i][0],2)
@@ -30,8 +30,6 @@ for epoche in range(0,epocheNum):
     epocheError = 0
     print(f"Epoche : {epoche}")
 
-
-
     for i in range(0,10):
         pngIndex = int(random.uniform(0,99))
         Errors = a.learn("model-1", "learning_dataset", i, learningRate, pngIndex)
@@ -40,14 +38,13 @@ for epoche in range(0,epocheNum):
 
     errorslst.append(epocheError)
     epochelst.append(epoche)
-    
 
-
-    ax.plot(epochelst, errorslst, color='red')
-    plt.draw()
-    plt.pause(0.001)
 
     print(f"     Error = {epocheError}")
+
+ax.plot(epochelst, errorslst, color='red')
+plt.draw()
+plt.pause(0.001)
 plt.show()
 print(f"error improve: {er0-epocheError}")
 
