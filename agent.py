@@ -1,7 +1,7 @@
 from PIL import Image, ImageFilter, ImageFile
 import numpy as np
 from MatrixLab import matrix
-from cv2 import VideoCapture, imshow, applyColorMap, COLORMAP_BONE, imwrite
+from cv2 import VideoCapture, imshow, applyColorMap, COLOR_BGR2GRAY, imwrite, cvtColor, INTER_AREA, resize, waitKey
 import os
 import math
 
@@ -38,23 +38,32 @@ def pngMatrix(filename):
     out = matrix(MatrixLst)
     return out
 
-def snapMatrix():
-    cam = VideoCapture(0)
+def getLearningPngToMatrix(dataset, number, index):
+    with Image.open(os.path.join(str(dataset), str(number),str(index)+".png")) as img:
+        BitImg = (np.asarray(img).flatten() / 255.0).tolist()
+    MatrixLst = []
+    for bit in BitImg:
+        MatrixLst.append([bit])
+    out = matrix(MatrixLst)
+    return out
+
+def snapMatrix(cam):
     ret, frame = cam.read()
     if ret == True:
-        try:
-                os.mkdir('./tmp/')
-        except:
-            pass
-        applyColorMap(frame, COLORMAP_BONE)
-        imshow('a',frame)
-        frame.resize(28,28)
-        BitImg = (np.asarray(frame).flatten()/255.0).tolist()
+        gray = cvtColor(frame, COLOR_BGR2GRAY)
+        small = resize(gray, (28,28), interpolation=INTER_AREA)
+        imshow('resized-bw', frame)
+        waitKey(10)
+        BitImg = (np.asarray(small).flatten()/255.0).tolist()
         MatrixLst = []
         for bit in BitImg:
             MatrixLst.append([bit])
+        
         out = matrix(MatrixLst)
         return out
+    
+
+
                
 def importModel(foldername):
     try:
@@ -142,8 +151,8 @@ def saveModel(folder, inputHidden, hiddenOutput):
 
 
 
-def learn(model, dataset, num, learningRate):
-    input_layer = pngMatrix(f'{dataset}/{num}.png')
+def learn(model, dataset, num, learningRate, i):
+    input_layer = getLearningPngToMatrix(dataset, num, i)
     #print(f"InputLayer creaed : matrix {input_layer.height}x{input_layer.width}")
     w_input_hidden, w_hidden_output = importModel(model)
 
@@ -175,3 +184,10 @@ def detectPng(model, dataset, num):
     output_layer = sigmoidMatrix(w_hidden_output@hidden_layer)
     output_layer.show()
     
+def detectCam(model, capture):
+    input_layer = snapMatrix(capture)
+    print(f"{input_layer.height}x{input_layer.width}")
+    w_input_hidden, w_hidden_output = importModel(model)
+    hidden_layer = sigmoidMatrix(w_input_hidden@input_layer)
+    output_layer = sigmoidMatrix(w_hidden_output@hidden_layer)
+    output_layer.show()
