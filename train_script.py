@@ -30,17 +30,24 @@ for epoche in range(0,epocheNum):
     epocheError = 0
     print(f"Epoche : {epoche}")
 
+
+
     for i in range(0,10):
         pngIndex = int(random.uniform(0,99))
         Errors = a.learn("model-1", "learning_dataset", i, learningRate, pngIndex)
-        print(f"Learning number {i} : idx {pngIndex}")
+        print(f"        Learning number {i} : idx {pngIndex}")
         epocheError += math.pow(Errors.matrix[i][0],2)
 
     errorslst.append(epocheError)
     epochelst.append(epoche)
+    
 
+
+    
 
     print(f"     Error = {epocheError}")
+
+
 
 ax.plot(epochelst, errorslst, color='red')
 plt.draw()
