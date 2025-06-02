@@ -6,10 +6,10 @@ savingNum = 9
 
 
 dir = os.path.join("learning_dataset", str(savingNum))
-os.mkdir(dir)
+# os.mkdir(dir)
 cam = VideoCapture(0)
 
-for index in range(101):
+for index in range(101,501):
     ret, frame = cam.read()
     if ret == True:
         print(dir)
@@ -19,5 +19,5 @@ for index in range(101):
         imwrite(dir, small)
         imshow('input', frame)
         waitKey(10)
-    time.sleep(0.5)
+    time.sleep(0.25)
         

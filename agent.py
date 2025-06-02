@@ -190,4 +190,10 @@ def detectCam(model, capture):
     w_input_hidden, w_hidden_output = importModel(model)
     hidden_layer = sigmoidMatrix(w_input_hidden@input_layer)
     output_layer = sigmoidMatrix(w_hidden_output@hidden_layer)
-    output_layer.show()
+    
+    number = 0
+
+    for value in output_layer.matrix:
+        print(f"{number} - ( {int(value[0]*100)} % )")
+        number+=1
+

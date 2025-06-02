@@ -7,7 +7,7 @@ snap = cv.VideoCapture(0)
 while True:
     os.system('cls')
     a.detectCam("model-1", snap)
-    time.sleep(1)    # seconds
+    time.sleep(0.2)    # seconds
     
 
 snap.release()
