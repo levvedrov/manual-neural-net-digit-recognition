@@ -1,12 +1,10 @@
 import agent as a
 import matplotlib.pyplot as plt
 import math
-import os
 import random
-import time
 
 learningRate = 0.005
-epocheNum = 10000
+epocheNum = 25000
 
 epocheError = 0
 for i in range(0,10):
@@ -29,8 +27,6 @@ for epoche in range(0,epocheNum):
         Errors = a.learn("model-1", "learning_dataset", i, learningRate, pngIndex)
         print(f"        Learning number {i} : idx {pngIndex}")
         epocheError += math.pow(Errors.matrix[i][0],2)
-    
-    time.sleep(1)
     errorslst.append(epocheError)
     epochelst.append(epoche)
     print(f"     Error = {epocheError}")

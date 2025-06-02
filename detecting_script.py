@@ -5,6 +5,7 @@ import os
 # a.detectPng("model-1", "learning_dataset", 3)
 snap = cv.VideoCapture(0)
 while True:
+    os.system('cls')
     a.detectCam("model-1", snap)
     time.sleep(1)    # seconds
     
