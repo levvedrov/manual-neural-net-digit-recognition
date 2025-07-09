@@ -33,8 +33,8 @@ This project is designed as an educational example of how neural networks work u
 
 ## How It Works
 
-1️⃣ **starter.py** → generates random weights and saves them to `/model-1/`  
-2️⃣ **train_script.py** → runs training loop for several epochs and plots error graph  
-3️⃣ **agent.py** → contains full implementation of forward pass, backpropagation and gradient descent
+**starter.py** → generates random weights and saves them to `/model-1/`  
+**train_script.py** → runs training loop for several epochs and plots error graph  
+**agent.py** → contains full implementation of forward pass, backpropagation and gradient descent
 
 ---
