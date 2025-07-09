@@ -1,7 +1,7 @@
 # Neural-Net-Engine-Lab: Neural Network from Scratch
 
 A simple neural network for digit classification built **entirely from scratch** in Python — no ML frameworks, no libraries like PyTorch or TensorFlow.  
-All matrix operations are implemented via a custom MatrixLab (https://github.com/levvedrov/matrix-lab) engine.
+All matrix operations are implemented via a custom Matrix-Lab (https://github.com/levvedrov/matrix-lab) engine.
 
 This project is designed as an educational example of how neural networks work under the hood.
 
