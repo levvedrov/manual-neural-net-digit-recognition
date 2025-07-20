@@ -19,7 +19,8 @@ This project is designed as an educational example of how neural networks work u
 
 ---
 
-<div style="position: flex;">![IMG_2121 (1)](https://github.com/user-attachments/assets/98eb6b59-87da-4828-8993-0ef6505c797d)</div>
+![IMG_2121 (1)](https://github.com/user-attachments/assets/34b4a7e5-92ab-483c-8d3b-1e2f2181516b)
+
 
 ---
 
