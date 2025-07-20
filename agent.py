@@ -186,14 +186,18 @@ def detectPng(model, dataset, num):
     
 def detectCam(model, capture):
     input_layer = snapMatrix(capture)
-    print(f"{input_layer.height}x{input_layer.width}")
     w_input_hidden, w_hidden_output = importModel(model)
     hidden_layer = sigmoidMatrix(w_input_hidden@input_layer)
     output_layer = sigmoidMatrix(w_hidden_output@hidden_layer)
     
     number = 0
-
+    os.system('cls')
+    print(f"\033[95m[\033[93m{model}\033[95m Output layer]\033[0m")
     for value in output_layer.matrix:
-        print(f"{number} - ( {int(value[0]*100)} % )")
+        conf = int(value[0]*100)
+        if conf>80:
+             print(f"\033[1m\033[92m\033[4m[{number}] : ( conf = {int(value[0]*100)} % )\033[0m <---")
+        else:
+            print(f"\033[96m[{number}] : ( conf = {int(value[0]*100)} % )\033[0m")
         number+=1
 
