@@ -18,7 +18,7 @@ This project is designed as an educational example of how neural networks work u
 - No external ML libraries — **all math coded manually**
 
 ---
-![IMG_2120 (1)](https://github.com/user-attachments/assets/eda9214f-fdd6-4394-8722-902052ba0dbb)
+![IMG_2120 (2)](https://github.com/user-attachments/assets/c51d58cc-d097-4cea-ab73-7bb0b06f0a39)
 ---
 
 ## Architecture
